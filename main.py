@@ -20,7 +20,7 @@ def subscribe_podcast():
     db_manager = DatabaseManager()
     db_manager.add_podcast(podcast_info['title'], feed_url, podcast_info['description'])
     db_manager.close()
-
+    print("")
     print(f"Subscribed to {podcast_info['title']}")
 
 def view_subscriptions():
@@ -61,6 +61,9 @@ def play_episode():
     podcast_info = parser.parse_feed(feed_url)
     episodes = podcast_info['episodes']
 
+    # Reverse the episodes list to show latest episodes first
+    episodes.reverse()
+
     print(f"Episodes for {podcast_title}:")
     for idx, episode in enumerate(episodes, 1):
         print(f"{idx}. {episode['title']}")
@@ -76,11 +79,12 @@ def play_episode():
     audio_manager.stop()
     db_manager.close()
 
+
 def main():
     while True:
         main_menu()
-        choice = input("Enter your choice: ").strip()
-
+        choice = input("Enter your choice: ").strip().replace('\r', '')
+        print(f"DEBUG: choice is {repr(choice)}")
         if choice == '1':
             subscribe_podcast()
         elif choice == '2':
