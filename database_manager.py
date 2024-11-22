@@ -53,6 +53,14 @@ class DatabaseManager:
         cursor = self.conn.cursor()
         cursor.execute('SELECT id, title FROM podcasts WHERE feed_url = ?', (feed_url,))
         return cursor.fetchone()
+    
+    def remove_podcast(self, podcast_id):
+        cursor = self.conn.cursor()
+        # Delete the podcast entry
+        cursor.execute('DELETE FROM podcasts WHERE id = ?', (podcast_id,))
+        # Optionally, delete associated episodes if you store them
+        # cursor.execute('DELETE FROM episodes WHERE podcast_id = ?', (podcast_id,))
+        self.conn.commit()
 
     def close(self):
         self.conn.close()

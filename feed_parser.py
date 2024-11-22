@@ -1,10 +1,14 @@
-# feed_parser.py
-
 import feedparser
 
 class FeedParser:
     def parse_feed(self, url):
         feed = feedparser.parse(url)
+
+        if feed.bozo:
+            # An error occurred while parsing the feed
+            print(f"Error parsing feed: {feed.bozo_exception}")
+            return {'title': 'No Title', 'description': 'No Description', 'episodes': []}
+
         podcast_info = {
             'title': feed.feed.get('title', 'No Title'),
             'description': feed.feed.get('description', 'No Description'),
