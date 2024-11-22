@@ -45,7 +45,7 @@ NeoPod is a command-line podcast manager and player written in Python. It allows
 
 ## Setup
 1. Clone the Repository
-- git clone https://github.com/yourusername/NeoPod.git
+- git clone https://github.com/hunterAntal/NeoPod
 - cd NeoPod
 
 2. Create a Virtual Environment
