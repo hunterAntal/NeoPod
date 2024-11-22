@@ -4,8 +4,12 @@ import vlc
 
 class AudioManager:
     def __init__(self):
-        self.instance = vlc.Instance()
-        self.player = self.instance.media_player_new()
+        try:
+            self.instance = vlc.Instance()
+            self.player = self.instance.media_player_new()
+        except Exception as e:
+            print(f"An error occurred while initializing VLC: {e}")
+            raise
 
     def play_episode(self, url):
         media = self.instance.media_new(url)
